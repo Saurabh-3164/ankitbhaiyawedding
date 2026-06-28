@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+<title>Ajit & Roli — A Royal Wedding Invitation</title>
+<meta name="description" content="You are cordially invited to the wedding of Ajit Pandey & Roli Dwivedi — 07 July 2026, Panditpur, Gonda.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪔</text></svg>">
+
+<style>
+/* ============================================================
+   FONTS — loaded once, used everywhere below
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,500&family=Cinzel:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+
+/* ============================================================
+   ROOT TOKENS
+   ============================================================ */
+:root{
+  --gold:#D4AF37;
+  --gold-light:#F3D88A;
+  --maroon:#7A0019;
+  --maroon-deep:#4a0010;
+  --ivory:#FFF8E7;
+  --blush:#FFECEF;
+  --white:#ffffff;
+  --brown:#2b1810;
+  --shadow-gold: 0 0 25px rgba(212,175,55,.45);
+  --transition-slow: 1.1s cubic-bezier(.22,.61,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--brown);
+  color:var(--ivory);
+  font-family:'Poppins',sans-serif;
+  overflow-x:hidden;
+  cursor:none;
+}
+@media (max-width:768px){ body{cursor:auto;} }
+h1,h2,h3,h4{font-family:'Playfair Display',serif;}
+.script{font-family:'Great Vibes',cursive;}
+.regal{font-family:'Cinzel',serif; letter-spacing:2px;}
+section{position:relative; width:100%; padding:90px 6vw; overflow:hidden;}
+img{max-width:100%; display:block;}
+button{font-family:inherit; cursor:pointer; border:none; background:none;}
+
+/* reduced motion respect */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
+}
+
+/* ============================================================
+   CURSOR EFFECTS
+   ============================================================ */
+.cursor-dot, .cursor-glow{
+  position:fixed; top:0; left:0; pointer-events:none; z-index:9999; border-radius:50%;
+  transform:translate(-50%,-50%);
+}
+.cursor-dot{width:7px;height:7px;background:var(--gold-light); box-shadow:0 0 8px var(--gold);}
+.cursor-glow{width:34px;height:34px;border:1px solid rgba(212,175,55,.6); transition:width .25s,height .25s,border-color .25s;}
+.ripple{
+  position:fixed; pointer-events:none; z-index:9998; border-radius:50%;
+  border:1px solid var(--gold-light); transform:translate(-50%,-50%);
+  animation:rippleOut .7s ease-out forwards;
+}
+@keyframes rippleOut{ from{width:0;height:0;opacity:1;} to{width:90px;height:90px;opacity:0;} }
+.spark{
+  position:fixed; pointer-events:none; z-index:9998; width:4px; height:4px; border-radius:50%;
+  background:var(--gold-light); animation:sparkFade .9s ease-out forwards;
+}
+@keyframes sparkFade{ to{ transform:translate(var(--dx),var(--dy)) scale(0); opacity:0; } }
+
+/* ============================================================
+   GLOBAL DECORATIVE LAYERS (petals, fireflies, sparkles)
+   ============================================================ */
+.fx-layer{position:fixed; inset:0; pointer-events:none; z-index:5; overflow:hidden;}
+.petal{
+  position:absolute; top:-5%; font-size:18px; opacity:.85; color:var(--blush);
+  animation:fall linear infinite;
+  filter:drop-shadow(0 0 4px rgba(255,255,255,.4));
+}
+@keyframes fall{
+  0%{ transform:translateY(-10vh) translateX(0) rotate(0deg); }
+  100%{ transform:translateY(110vh) translateX(40px) rotate(360deg); }
+}
+.firefly{
+  position:absolute; width:5px; height:5px; border-radius:50%;
+  background:var(--gold-light); box-shadow:0 0 12px var(--gold);
+  animation:drift ease-in-out infinite;
+}
+@keyframes drift{
+  0%,100%{ transform:translate(0,0); opacity:.2; }
+  50%{ transform:translate(20px,-30px); opacity:1; }
+}
+.sparkle-dot{
+  position:absolute; width:3px; height:3px; background:#fff; border-radius:50%;
+  box-shadow:0 0 6px 2px var(--gold-light);
+  animation:twinkle ease-in-out infinite;
+}
+@keyframes twinkle{ 0%,100%{opacity:0;} 50%{opacity:1;} }
+
+/* ============================================================
+   PRELOADER / CINEMATIC OPENING
+   ============================================================ */
+#preloader{
+  position:fixed; inset:0; z-index:10000; background:radial-gradient(ellipse at center, #1a0d06 0%, #000 100%);
+  display:flex; align-items:center; justify-content:center; flex-direction:column;
+  transition:opacity 1.4s ease, visibility 1.4s ease;
+}
+#preloader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+.ganesh-text{
+  font-family:'Cinzel',serif; color:var(--gold-light); font-size:clamp(20px,4vw,34px);
+  letter-spacing:3px; opacity:0; animation:revealText 2s ease forwards .3s;
+  text-shadow:0 0 20px rgba(212,175,55,.8);
+}
+@keyframes revealText{ to{opacity:1;} }
+.om-symbol{
+  margin-top:24px; font-size:clamp(50px,10vw,80px); color:var(--gold);
+  opacity:0; animation:omGlow 2.4s ease forwards 1.4s;
+  text-shadow:0 0 30px var(--gold), 0 0 60px var(--gold);
+}
+@keyframes omGlow{ 0%{opacity:0; transform:scale(.5);} 60%{opacity:1; transform:scale(1.15);} 100%{opacity:1; transform:scale(1);} }
+.mandala-expand{
+  position:absolute; width:280px; height:280px; border:1px solid rgba(212,175,55,.4); border-radius:50%;
+  opacity:0; animation:mandalaGrow 2.6s ease forwards 2.4s;
+}
+.mandala-expand::before,.mandala-expand::after{
+  content:''; position:absolute; inset:20px; border:1px solid rgba(212,175,55,.25); border-radius:50%;
+}
+@keyframes mandalaGrow{ 0%{opacity:0; transform:scale(.3) rotate(0deg);} 100%{opacity:1; transform:scale(1.6) rotate(140deg); }}
+.envelope-wrap{
+  position:relative; width:240px; height:160px; opacity:0; margin-top:30px;
+  animation:envIn 1s ease forwards 4.6s;
+}
+@keyframes envIn{ to{opacity:1;} }
+.envelope{
+  position:relative; width:100%; height:100%;
+  background:linear-gradient(145deg, var(--gold-light), var(--gold));
+  border-radius:6px; box-shadow:var(--shadow-gold);
+}
+.flap{
+  position:absolute; top:0; left:0; width:100%; height:80px;
+  background:linear-gradient(135deg, var(--maroon), var(--maroon-deep));
+  clip-path:polygon(0 0,100% 0,50% 70%);
+  transform-origin:top; transition:transform 1.2s ease;
+}
+.envelope-wrap.open .flap{ transform:rotateX(180deg); }
+.card-pop{
+  position:absolute; top:10%; left:50%; width:78%; height:70%; background:var(--ivory);
+  border:1px solid var(--gold); border-radius:4px; transform:translate(-50%,0) scale(.3);
+  opacity:0; display:flex; align-items:center; justify-content:center; text-align:center;
+  color:var(--maroon); font-family:'Cinzel',serif; font-size:13px; padding:10px;
+  transition:transform 1.1s cubic-bezier(.2,.7,.2,1.3) .3s, opacity .6s .3s;
+}
+.envelope-wrap.open .card-pop{ transform:translate(-50%,-60%) scale(1); opacity:1; }
+.skip-intro{
+  position:absolute; bottom:30px; right:30px; color:var(--gold-light); border:1px solid var(--gold);
+  padding:8px 18px; border-radius:30px; font-size:12px; letter-spacing:1px; z-index:10001;
+  background:rgba(0,0,0,.3);
+}
+
+/* ============================================================
+   FLOATING NAV
+   ============================================================ */
+#navbar{
+  position:fixed; top:16px; left:50%; transform:translateX(-50%); z-index:500;
+  display:flex; gap:6px; background:rgba(20,8,4,.65); backdrop-filter:blur(10px);
+  border:1px solid rgba(212,175,55,.4); border-radius:40px; padding:8px 10px;
+  box-shadow:0 8px 30px rgba(0,0,0,.4);
+  transition:opacity .6s, transform .6s;
+}
+#navbar a{
+  color:var(--ivory); font-size:11px; letter-spacing:1px; text-decoration:none; text-transform:uppercase;
+  padding:8px 12px; border-radius:30px; transition:.3s; white-space:nowrap; font-family:'Poppins';
+}
+#navbar a.active, #navbar a:hover{ background:var(--gold); color:var(--maroon-deep); }
+#navMusicBtn{ font-size:14px; }
+@media (max-width:768px){
+  #navbar{ overflow-x:auto; max-width:94vw; justify-content:flex-start; }
+  #navbar a{ font-size:10px; padding:7px 9px; }
+}
+#backTop{
+  position:fixed; bottom:26px; right:20px; z-index:500; width:46px; height:46px; border-radius:50%;
+  background:var(--gold); color:var(--maroon-deep); display:flex; align-items:center; justify-content:center;
+  box-shadow:var(--shadow-gold); opacity:0; transform:translateY(20px); transition:.4s; font-size:18px;
+}
+#backTop.show{ opacity:1; transform:translateY(0); }
+
+/* ============================================================
+   MUSIC PLAYER
+   ============================================================ */
+#musicPlayer{
+  position:fixed; bottom:26px; left:20px; z-index:500; display:flex; align-items:center; gap:10px;
+  background:rgba(20,8,4,.7); border:1px solid rgba(212,175,55,.4); border-radius:40px;
+  padding:8px 14px; backdrop-filter:blur(8px);
+}
+#musicToggle{
+  width:38px; height:38px; border-radius:50%; background:var(--gold); color:var(--maroon-deep);
+  display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0;
+  animation:discSpin 6s linear infinite paused;
+}
+#musicPlayer.playing #musicToggle{ animation-play-state:running; }
+@keyframes discSpin{ to{ transform:rotate(360deg); } }
+#volRange{ width:70px; accent-color:var(--gold); }
+@media (max-width:600px){ #volRange{ width:46px; } }
+
+/* ============================================================
+   SECTION HEADERS / SHARED COMPONENTS
+   ============================================================ */
+.section-eyebrow{
+  display:block; text-align:center; color:var(--gold); font-size:12px; letter-spacing:4px;
+  text-transform:uppercase; margin-bottom:10px;
+}
+.section-title{
+  text-align:center; font-size:clamp(30px,5vw,52px); color:var(--gold-light); margin-bottom:14px;
+}
+.divider-gold{
+  width:140px; height:2px; margin:0 auto 50px; position:relative; background:linear-gradient(90deg,transparent,var(--gold),transparent);
+}
+.divider-gold::before{
+  content:'❦'; position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); color:var(--gold);
+  background:var(--brown); padding:0 10px; font-size:16px;
+}
+.reveal{ opacity:0; transform:translateY(50px); transition:opacity 1s ease, transform 1s ease; }
+.reveal.in{ opacity:1; transform:translateY(0); }
+.reveal.zoom{ transform:scale(.85) translateY(30px); }
+.reveal.zoom.in{ transform:scale(1) translateY(0); }
+.reveal.left{ transform:translateX(-60px); }
+.reveal.left.in{ transform:translateX(0); }
+.reveal.right{ transform:translateX(60px); }
+.reveal.right.in{ transform:translateX(0); }
+
+/* mandala watermark, used in multiple sections */
+.mandala-watermark{
+  position:absolute; width:600px; height:600px; opacity:.05; border:2px solid var(--gold); border-radius:50%;
+  top:50%; left:50%; transform:translate(-50%,-50%);
+}
+.mandala-watermark::before{ content:''; position:absolute; inset:40px; border:2px solid var(--gold); border-radius:50%; }
+.mandala-watermark::after{ content:''; position:absolute; inset:80px; border:2px dashed var(--gold); border-radius:50%; }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+#hero{
+  min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; background:
+    radial-gradient(circle at 50% 20%, rgba(212,175,55,.18), transparent 60%),
+    linear-gradient(180deg, #1d0f08 0%, #2b1810 55%, #1d0f08 100%);
+  padding-top:120px;
+}
+.hero-eyebrow{ color:var(--gold); regal; font-size:13px; letter-spacing:5px; text-transform:uppercase; margin-bottom:18px;}
+#hero h1.script{ font-size:clamp(46px,9vw,90px); color:var(--gold-light); text-shadow:0 0 30px rgba(212,175,55,.5); }
+.hero-sub{ color:var(--blush); font-size:15px; margin:18px 0 28px; max-width:520px; font-style:italic; }
+.names-block{ display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap; margin:14px 0;}
+.name-glow{
+  font-family:'Cinzel',serif; font-size:clamp(26px,5vw,42px); color:var(--white);
+  text-shadow:0 0 18px var(--gold), 0 0 36px rgba(212,175,55,.5);
+}
+.heart-beat{ font-size:28px; animation:beat 1.4s ease-in-out infinite; }
+@keyframes beat{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.3); } }
+.hero-msg{ max-width:560px; color:var(--ivory); font-size:14px; line-height:1.9; opacity:.9; margin-bottom:34px; }
+.btn-royal{
+  display:inline-block; padding:16px 42px; background:linear-gradient(120deg,var(--gold),var(--gold-light));
+  color:var(--maroon-deep); border-radius:40px; font-family:'Cinzel'; font-size:13px; letter-spacing:2px;
+  text-transform:uppercase; box-shadow:var(--shadow-gold); position:relative; overflow:hidden;
+  transition:transform .3s;
+}
+.btn-royal:hover{ transform:translateY(-3px) scale(1.03); }
+.btn-royal::after{
+  content:''; position:absolute; inset:0; background:linear-gradient(120deg,transparent,rgba(255,255,255,.6),transparent);
+  transform:translateX(-120%); animation:shine 3.2s ease-in-out infinite;
+}
+@keyframes shine{ to{ transform:translateX(120%); } }
+
+/* ============================================================
+   COUPLE PHOTO SECTION
+   ============================================================ */
+#couplePhoto{ text-align:center; background:linear-gradient(180deg,#2b1810,#1d0f08); }
+.oval-frame-wrap{ position:relative; width:min(340px,80vw); margin:0 auto 30px; }
+.oval-frame{
+  width:100%; aspect-ratio:3/4; border-radius:50%/42%;
+  border:14px solid var(--gold); background:linear-gradient(160deg,var(--blush),var(--ivory));
+  display:flex; align-items:center; justify-content:center; text-align:center; padding:20px;
+  box-shadow:0 0 0 4px var(--maroon), 0 0 50px rgba(212,175,55,.5);
+  color:var(--maroon); font-family:'Cinzel'; font-size:14px; position:relative; overflow:hidden;
+  animation:framePulse 4s ease-in-out infinite;
+}
+@keyframes framePulse{ 0%,100%{ box-shadow:0 0 0 4px var(--maroon),0 0 50px rgba(212,175,55,.5);} 50%{ box-shadow:0 0 0 4px var(--maroon),0 0 80px rgba(212,175,55,.85);} }
+.oval-frame span{ position:relative; z-index:2; }
+.frame-deco{ position:absolute; font-size:22px; filter:drop-shadow(0 0 4px #fff); }
+.deco-tl{ top:-6px; left:-6px; } .deco-tr{ top:-6px; right:-6px; }
+.deco-bl{ bottom:-6px; left:-6px; } .deco-br{ bottom:-6px; right:-6px; }
+.floating-heart{
+  position:absolute; bottom:-10px; color:var(--maroon); opacity:0; font-size:14px;
+  animation:floatHeart 4s ease-in infinite;
+}
+@keyframes floatHeart{ 0%{ opacity:0; transform:translateY(0); } 15%{opacity:1;} 100%{ opacity:0; transform:translateY(-220px) translateX(10px); } }
+.couple-names-below{ font-size:clamp(28px,5vw,46px); color:var(--gold-light); margin-top:18px; }
+
+/* ============================================================
+   COUPLE INFO CARDS
+   ============================================================ */
+#coupleInfo{ background:var(--ivory); color:var(--brown); }
+.info-grid{ display:grid; grid-template-columns:1fr 1fr; gap:36px; max-width:1000px; margin:0 auto; }
+@media (max-width:760px){ .info-grid{ grid-template-columns:1fr; } }
+.glass-card{
+  background:rgba(255,255,255,.55); border:1px solid rgba(212,175,55,.5); border-radius:18px;
+  padding:34px 28px; backdrop-filter:blur(6px); box-shadow:0 10px 40px rgba(122,0,25,.08);
+  transition:transform .4s, box-shadow .4s;
+}
+.glass-card:hover{ transform:translateY(-6px); box-shadow:0 18px 50px rgba(122,0,25,.16); }
+.glass-card h3{ color:var(--maroon); font-size:24px; margin-bottom:6px; }
+.glass-card .role{ color:var(--gold); font-family:'Cinzel'; font-size:11px; letter-spacing:2px; text-transform:uppercase; margin-bottom:18px; }
+.info-row{ display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px dashed rgba(122,0,25,.18); font-size:14px; }
+.info-row span:first-child{ color:#8a6a52; }
+.info-row span:last-child{ font-weight:500; text-align:right; }
+
+/* ============================================================
+   COUNTDOWN
+   ============================================================ */
+#countdown{ background:linear-gradient(180deg,#1d0f08,#2b1810); text-align:center; }
+.cd-grid{ display:flex; gap:20px; justify-content:center; flex-wrap:wrap; max-width:700px; margin:0 auto; }
+.cd-card{
+  width:120px; padding:24px 10px; border-radius:16px; background:rgba(212,175,55,.08);
+  border:1px solid rgba(212,175,55,.45); animation:pulseCard 1s ease-in-out infinite;
+}
+@keyframes pulseCard{ 0%,100%{ box-shadow:0 0 0 0 rgba(212,175,55,.0); } 50%{ box-shadow:0 0 22px 0 rgba(212,175,55,.35); } }
+.cd-num{ font-size:38px; color:var(--gold-light); font-family:'Cinzel'; }
+.cd-label{ font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--blush); margin-top:6px; }
+
+/* ============================================================
+   INVITATION MESSAGE
+   ============================================================ */
+#invMessage{ text-align:center; background:var(--maroon-deep); }
+#invMessage blockquote{
+  max-width:680px; margin:0 auto; font-family:'Playfair Display'; font-style:italic; font-size:clamp(17px,2.4vw,22px);
+  line-height:2; color:var(--gold-light);
+}
+.handwrite{ position:relative; }
+.handwrite span{
+  opacity:0; animation:appearWord .05s ease forwards;
+  animation-delay:calc(var(--i) * 60ms);
+}
+
+/* ============================================================
+   FAMILY SECTION
+   ============================================================ */
+#family{ background:var(--ivory); color:var(--brown); }
+.family-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:30px; max-width:1100px; margin:0 auto; }
+.family-card{
+  background:#fff; border:1px solid rgba(212,175,55,.4); border-radius:18px; padding:30px;
+  box-shadow:0 10px 30px rgba(122,0,25,.06); text-align:center;
+}
+.family-card h3{ color:var(--maroon); font-size:20px; margin-bottom:18px; }
+.family-card h3::after{ content:''; display:block; width:50px; height:2px; background:var(--gold); margin:10px auto 0; }
+.family-card ul{ list-style:none; }
+.family-card li{ padding:7px 0; font-size:14.5px; color:#4a3527; }
+.host-line{ text-align:center; margin-top:40px; font-family:'Cinzel'; color:var(--maroon); letter-spacing:1px; }
+
+/* ============================================================
+   TIMELINE
+   ============================================================ */
+#timeline{ background:linear-gradient(180deg,#1d0f08,#2b1810,#1d0f08); }
+.tl-track{ position:relative; max-width:900px; margin:0 auto; padding-left:30px; border-left:2px solid rgba(212,175,55,.35); }
+.tl-item{ position:relative; margin-bottom:90px; padding-left:30px; }
+.tl-item:last-child{ margin-bottom:0; }
+.tl-dot{
+  position:absolute; left:-46px; top:4px; width:18px; height:18px; border-radius:50%;
+  background:var(--gold); box-shadow:0 0 0 4px var(--brown), 0 0 18px var(--gold);
+}
+.tl-date{ color:var(--gold); regal; font-size:12px; letter-spacing:2px; text-transform:uppercase; }
+.tl-day{ color:var(--blush); font-size:12px; opacity:.7; margin-left:8px; }
+.tl-title{ font-size:clamp(22px,3.5vw,32px); color:var(--white); margin:6px 0 18px; }
+.tl-card{
+  background:rgba(255,255,255,.04); border:1px solid rgba(212,175,55,.25); border-radius:16px; padding:26px;
+}
+.schedule-list{ display:flex; flex-direction:column; gap:12px; margin-top:12px; }
+.sched-item{
+  display:flex; align-items:center; gap:12px; padding:12px 16px; background:rgba(212,175,55,.06);
+  border-left:3px solid var(--gold); border-radius:8px; opacity:0; transform:translateX(-20px);
+  transition:opacity .6s, transform .6s;
+}
+.sched-item.in{ opacity:1; transform:translateX(0); }
+.sched-icon{ font-size:18px; }
+.sched-time{ color:var(--gold-light); font-size:11px; letter-spacing:1px; text-transform:uppercase; min-width:64px; }
+
+/* Event 2 special decor */
+.event2-bg{ position:relative; padding:30px; border-radius:20px; background:radial-gradient(circle at 30% 20%, rgba(212,175,55,.1), transparent 60%); }
+.diya-row{ display:flex; gap:14px; justify-content:center; margin:20px 0; font-size:22px; }
+.diya{ animation:flicker 1.4s ease-in-out infinite; }
+.diya:nth-child(2){ animation-delay:.3s; } .diya:nth-child(3){ animation-delay:.6s; } .diya:nth-child(4){ animation-delay:.9s; }
+@keyframes flicker{ 0%,100%{ filter:drop-shadow(0 0 4px orange); transform:scale(1);} 50%{ filter:drop-shadow(0 0 12px gold); transform:scale(1.15);} }
+.bell{ display:inline-block; animation:bellSwing 2s ease-in-out infinite; }
+@keyframes bellSwing{ 0%,100%{ transform:rotate(-12deg);} 50%{ transform:rotate(12deg);} }
+.shloka-float{
+  position:absolute; color:rgba(212,175,55,.5); font-family:'Cinzel'; font-size:13px;
+  animation:shlokaUp 8s linear infinite;
+}
+@keyframes shlokaUp{ 0%{ transform:translateY(0); opacity:0;} 10%{opacity:.7;} 90%{opacity:.7;} 100%{ transform:translateY(-160px); opacity:0;} }
+
+/* Event 3: Mandap (CSS built) */
+.mandap-wrap{ display:flex; justify-content:center; margin:40px 0; }
+.mandap{ position:relative; width:260px; height:220px; }
+.mandap-pillar{ position:absolute; bottom:0; width:14px; height:170px; background:linear-gradient(180deg,var(--gold-light),var(--gold)); border-radius:4px; box-shadow:0 0 12px var(--gold);}
+.mandap-pillar.p1{ left:0; } .mandap-pillar.p2{ right:0; } .mandap-pillar.p3{ left:80px; } .mandap-pillar.p4{ right:80px; }
+.mandap-roof{
+  position:absolute; top:0; left:50%; transform:translateX(-50%); width:280px; height:60px;
+  background:linear-gradient(180deg,var(--maroon),var(--maroon-deep)); clip-path:polygon(0 100%,50% 0,100% 100%);
+  box-shadow:0 0 24px rgba(212,175,55,.4);
+}
+.mandap-fire{ position:absolute; bottom:0; left:50%; transform:translateX(-50%); font-size:30px; animation:flicker 1s ease-in-out infinite; }
+.seq-list{ display:flex; flex-direction:column; gap:10px; max-width:520px; margin:30px auto 0; }
+.seq-item{
+  display:flex; align-items:center; gap:10px; opacity:0; transform:translateY(14px);
+  transition:opacity .5s, transform .5s; font-size:14px; color:var(--blush);
+}
+.seq-item.in{ opacity:1; transform:translateY(0); }
+.seq-item .num{ color:var(--gold); font-family:'Cinzel'; font-size:12px; width:24px; }
+.together-forever{ text-align:center; font-size:clamp(30px,5vw,48px); color:var(--gold-light); margin-top:50px; }
+
+/* Vidai */
+#vidaiWrap .tl-card{ text-align:center; background:rgba(255,236,239,.04); }
+.vidai-quote{ font-family:'Playfair Display'; font-style:italic; color:var(--blush); font-size:16px; margin-top:14px; }
+
+/* confetti canvas */
+#confettiCanvas{ position:fixed; inset:0; pointer-events:none; z-index:400; }
+
+/* ============================================================
+   VENUE
+   ============================================================ */
+#venue{ background:var(--ivory); color:var(--brown); text-align:center; }
+.venue-card{
+  max-width:480px; margin:0 auto; background:#fff; border:1px solid rgba(212,175,55,.5); border-radius:20px;
+  padding:36px 30px; box-shadow:0 14px 40px rgba(122,0,25,.1);
+}
+.venue-card .info-row{ text-align:left; }
+.venue-actions{ display:flex; gap:10px; justify-content:center; margin-top:24px; flex-wrap:wrap; }
+.venue-btn{
+  padding:11px 18px; border-radius:30px; font-size:12px; letter-spacing:1px; border:1px solid var(--maroon);
+  color:var(--maroon); background:transparent; transition:.3s;
+}
+.venue-btn:hover{ background:var(--maroon); color:var(--ivory); }
+
+/* ============================================================
+   RSVP
+   ============================================================ */
+#rsvp{ background:linear-gradient(180deg,#2b1810,#1d0f08); text-align:center; }
+.rsvp-card{
+  max-width:480px; margin:0 auto; background:rgba(255,255,255,.05); border:1px solid rgba(212,175,55,.4);
+  border-radius:20px; padding:36px 30px; backdrop-filter:blur(6px);
+}
+.rsvp-card input, .rsvp-card textarea{
+  width:100%; padding:13px 14px; margin-bottom:16px; border-radius:10px; border:1px solid rgba(212,175,55,.4);
+  background:rgba(255,255,255,.06); color:var(--ivory); font-family:'Poppins'; font-size:14px;
+}
+.rsvp-card textarea{ min-height:80px; resize:vertical; }
+.rsvp-card input::placeholder, .rsvp-card textarea::placeholder{ color:rgba(255,248,231,.5); }
+#rsvpThanks{
+  display:none; color:var(--gold-light); font-family:'Cinzel'; font-size:16px; padding:14px 0;
+}
+
+/* ============================================================
+   GALLERY
+   ============================================================ */
+#gallery{ background:var(--ivory); color:var(--brown); text-align:center; }
+.gal-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:18px; max-width:1100px; margin:0 auto; }
+.gal-item{
+  position:relative; aspect-ratio:1; border-radius:14px; overflow:hidden; cursor:pointer;
+  background:linear-gradient(160deg,var(--blush),var(--gold-light)); display:flex; align-items:center; justify-content:center;
+  border:2px solid rgba(212,175,55,.5); transition:transform .4s, box-shadow .4s;
+}
+.gal-item:hover{ transform:scale(1.05); box-shadow:0 14px 30px rgba(122,0,25,.25); }
+.gal-item span{ color:var(--maroon); font-family:'Cinzel'; font-size:13px; text-align:center; padding:10px; }
+#lightbox{
+  position:fixed; inset:0; background:rgba(0,0,0,.85); z-index:9000; display:none; align-items:center; justify-content:center;
+}
+#lightbox.show{ display:flex; }
+.lb-box{
+  width:min(420px,80vw); aspect-ratio:1; background:linear-gradient(160deg,var(--blush),var(--gold-light));
+  border-radius:14px; display:flex; align-items:center; justify-content:center; color:var(--maroon); font-family:'Cinzel'; text-align:center; padding:20px;
+  border:3px solid var(--gold);
+}
+#lbClose{ position:absolute; top:24px; right:30px; color:var(--gold-light); font-size:30px; }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+footer{ background:var(--maroon-deep); text-align:center; padding:60px 6vw; }
+.foot-heart{ font-size:24px; animation:beat 1.4s ease-in-out infinite; }
+footer h3.script{ font-size:32px; color:var(--gold-light); margin-top:10px; }
+footer p{ color:var(--blush); font-size:12px; opacity:.7; margin-top:18px; }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     CINEMATIC PRELOADER
+     ============================================================ -->
+<div id="preloader">
+  <div class="ganesh-text">ॐ श्री गणेशाय नमः</div>
+  <div class="om-symbol">ॐ</div>
+  <div class="mandala-expand"></div>
+  <div class="envelope-wrap" id="envelopeWrap">
+    <div class="envelope">
+      <div class="flap"></div>
+      <div class="card-pop">Ajit Pandey (Ankit)<br>&amp;<br>Roli Dwivedi<br><span style="font-size:10px;">request the honour of your presence</span></div>
+    </div>
+  </div>
+  <button class="skip-intro" id="skipIntro">Skip Intro ✦</button>
+</div>
+
+<!-- Cursor effects -->
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- Floating ambient layer: petals + fireflies + sparkles -->
+<div class="fx-layer" id="fxLayer"></div>
+
+<!-- Confetti -->
+<canvas id="confettiCanvas"></canvas>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav id="navbar">
+  <a href="#hero" class="nav-link active">Home</a>
+  <a href="#couplePhoto" class="nav-link">Couple</a>
+  <a href="#family" class="nav-link">Family</a>
+  <a href="#timeline" class="nav-link">Timeline</a>
+  <a href="#venue" class="nav-link">Venue</a>
+  <a href="#gallery" class="nav-link">Gallery</a>
+  <a href="#rsvp" class="nav-link">RSVP</a>
+  <a href="#" id="navMusicBtn">🎵</a>
+</nav>
+<button id="backTop" aria-label="Back to top">↑</button>
+
+<!-- Music Player -->
+<div id="musicPlayer">
+  <button id="musicToggle">▶</button>
+  <input type="range" id="volRange" min="0" max="1" step="0.01" value="0.5">
+</div>
+<!-- Royal shehnai-style ambient tone, generated via WebAudio (no external files) -->
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<section id="hero">
+  <div class="mandala-watermark"></div>
+  <span class="hero-eyebrow regal">Together With Their Beloved Families</span>
+  <h1 class="script reveal in">Wedding Invitation</h1>
+  <p class="hero-sub">Request the honour of your gracious presence to celebrate their sacred wedding ceremony</p>
+  <div class="names-block">
+    <span class="name-glow">🤵 Ajit Pandey</span>
+    <span class="heart-beat">❤️</span>
+    <span class="name-glow">👰 Roli Dwivedi</span>
+  </div>
+  <a href="#couplePhoto" class="btn-royal" style="margin-top:30px;">View Invitation</a>
+</section>
+
+<!-- ============================================================
+     COUPLE PHOTO SECTION (single shared photo)
+     ============================================================ -->
+<section id="couplePhoto">
+  <span class="section-eyebrow reveal">The Beginning Of Forever</span>
+  <h2 class="section-title reveal">Our Story, Together</h2>
+  <div class="divider-gold"></div>
+  <div class="oval-frame-wrap reveal zoom">
+    <div class="oval-frame">
+      <span class="frame-deco deco-tl">🌸</span>
+      <span class="frame-deco deco-tr">🌸</span>
+      <span class="frame-deco deco-bl">🌼</span>
+      <span class="frame-deco deco-br">🌼</span>
+      <span>Replace Couple Photo Here</span>
+      <div class="floating-heart" style="left:30%;">💛</div>
+      <div class="floating-heart" style="left:60%; animation-delay:1.3s;">💛</div>
+      <div class="floating-heart" style="left:45%; animation-delay:2.6s;">💛</div>
+    </div>
+  </div>
+  <h3 class="couple-names-below script">Ajit ❤️ Roli</h3>
+</section>
+
+<!-- ============================================================
+     COUPLE INFORMATION
+     ============================================================ -->
+<section id="coupleInfo">
+  <span class="section-eyebrow" style="color:var(--maroon);">Know The Couple</span>
+  <h2 class="section-title" style="color:var(--maroon);">Couple Information</h2>
+  <div class="divider-gold"></div>
+  <div class="info-grid">
+    <div class="glass-card reveal left">
+      <h3>Ajit Pandey</h3>
+      <div class="role">Groom</div>
+      <div class="info-row"><span>Grandfather</span><span>Late Raj Bahadur Pandey</span></div>
+      <div class="info-row"><span>Father</span><span>Shri Vinod Kumar Pandey</span></div>
+      <div class="info-row"><span>Village</span><span>Panditpur</span></div>
+      <div class="info-row"><span>Post</span><span>Bairipur Ramnath</span></div>
+      <div class="info-row"><span>Police Station</span><span>Mankapur</span></div>
+      <div class="info-row"><span>District</span><span>Gonda</span></div>
+    </div>
+    <div class="glass-card reveal right">
+      <h3>Roli Dwivedi</h3>
+      <div class="role">Bride</div>
+      <div class="info-row"><span>Grandfather</span><span>Shri Harishankar Dwivedi</span></div>
+      <div class="info-row"><span>Father</span><span>Shri Yudhishter Dwivedi</span></div>
+      <div class="info-row"><span>Village &amp; Post</span><span>Dhushwa Khas</span></div>
+      <div class="info-row"><span>Police Station</span><span>Mankapur</span></div>
+      <div class="info-row"><span>District</span><span>Gonda</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     COUNTDOWN
+     ============================================================ -->
+<section id="countdown">
+  <span class="section-eyebrow">The Big Day Approaches</span>
+  <h2 class="section-title">Counting Down To 07 July 2026</h2>
+  <div class="divider-gold"></div>
+  <div class="cd-grid">
+    <div class="cd-card"><div class="cd-num" id="cdDays">00</div><div class="cd-label">Days</div></div>
+    <div class="cd-card"><div class="cd-num" id="cdHours">00</div><div class="cd-label">Hours</div></div>
+    <div class="cd-card"><div class="cd-num" id="cdMins">00</div><div class="cd-label">Minutes</div></div>
+    <div class="cd-card"><div class="cd-num" id="cdSecs">00</div><div class="cd-label">Seconds</div></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     INVITATION MESSAGE
+     ============================================================ -->
+<section id="invMessage">
+  <div class="mandala-watermark"></div>
+  <blockquote class="handwrite reveal" id="handwriteQuote">
+    "With immense joy and the blessings of our elders, we cordially invite you to grace this auspicious occasion and bless the newlyweds with your love, blessings, and best wishes."
+  </blockquote>
+</section>
+
+<!-- ============================================================
+     FAMILY SECTION
+     ============================================================ -->
+<section id="family">
+  <span class="section-eyebrow" style="color:var(--maroon);">With Heartfelt Gratitude</span>
+  <h2 class="section-title" style="color:var(--maroon);">Our Families</h2>
+  <div class="divider-gold"></div>
+  <div class="family-grid">
+    <div class="family-card reveal">
+      <h3>Blessings From</h3>
+      <ul>
+        <li>Suryaprakash Pandey</li>
+        <li>Chandraprakash Pandey</li>
+        <li>Shailesh Pandey</li>
+        <li>Kaushalendra Pandey (Lavkush)</li>
+        <li>Ashish Pandey (Litil)</li>
+        <li>Vivek Pandey</li>
+        <li>Vijay Pandey</li>
+        <li>Prashant Pandey</li>
+        <li>Entire Pandey Family &amp; Friends</li>
+      </ul>
+    </div>
+    <div class="family-card reveal">
+      <h3>Welcoming Family</h3>
+      <ul>
+        <li>Krishna Dev Pandey</li>
+        <li>Ashok Pandey</li>
+        <li>Pradeep Pandey (Pankaj)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="host-line">Hosted with love by Shri Vinod Kumar Pandey &amp; Family</div>
+</section>
+
+<!-- ============================================================
+     TIMELINE
+     ============================================================ -->
+<section id="timeline">
+  <span class="section-eyebrow">Four Days Of Celebration</span>
+  <h2 class="section-title">Wedding Timeline</h2>
+  <div class="divider-gold"></div>
+  <div class="tl-track">
+
+    <!-- EVENT 1 -->
+    <div class="tl-item reveal left">
+      <span class="tl-dot"></span>
+      <span class="tl-date">05 July 2026</span><span class="tl-day">Sunday</span>
+      <h3 class="tl-title">🛕 Akhand Ramayan Path</h3>
+      <div class="tl-card">
+        <p style="opacity:.85; font-size:14px;">A day of devotion as the sacred Ramayan path begins, inviting blessings and divine grace upon the family and the journey ahead.</p>
+      </div>
+    </div>
+
+    <!-- EVENT 2 -->
+    <div class="tl-item reveal left" id="event2">
+      <span class="tl-dot"></span>
+      <span class="tl-date">06 July 2026</span><span class="tl-day">Monday</span>
+      <h3 class="tl-title">🪔 Purnahuti • Bhandara • Preeti Bhoj</h3>
+      <div class="tl-card event2-bg">
+        <div class="mandala-watermark" style="width:380px;height:380px;"></div>
+        <div class="diya-row">
+          <span class="diya">🪔</span><span class="diya">🪔</span><span class="diya">🪔</span><span class="diya">🪔</span>
+        </div>
+        <p style="text-align:center; font-size:13px; opacity:.8;"><span class="bell">🔔</span> Holy fire · Lotus blooms · Conch shells sound <span class="bell">🔔</span></p>
+        <div class="schedule-list">
+          <!-- <div class="sched-item"><span class="sched-icon">🔥</span><span class="sched-time">Morning</span><span>Sacred Purnahuti — Traditional Havan</span></div> -->
+          <div class="sched-item"><span class="sched-icon">🍛</span><span class="sched-time">Midday</span><span>GSacred Purnahuti — Traditional Havan</span></div>
+          <div class="sched-item"><span class="sched-icon">🌙</span><span class="sched-time">Evening</span><span>Preeti Bhoj — Evening Gathering</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EVENT 3 -->
+    <div class="tl-item reveal left" id="event3">
+      <span class="tl-dot"></span>
+      <span class="tl-date">07 July 2026</span><span class="tl-day">Tuesday</span>
+      <h3 class="tl-title">👑 Grand Wedding Ceremony</h3>
+      <div class="tl-card">
+        <div class="mandap-wrap">
+          <div class="mandap">
+            <div class="mandap-pillar p1"></div><div class="mandap-pillar p2"></div>
+            <div class="mandap-pillar p3"></div><div class="mandap-pillar p4"></div>
+            <div class="mandap-roof"></div>
+            <div class="mandap-fire">🔥</div>
+          </div>
+        </div>
+        <div class="seq-list" id="seqList">
+          <div class="seq-item"><span class="num">01</span>Baraat Arrival</div>
+          <div class="seq-item"><span class="num">02</span>Welcome Ceremony</div>
+          <div class="seq-item"><span class="num">03</span>Jaimala — Garland Exchange</div>
+          <div class="seq-item"><span class="num">04</span>Wedding Dinner</div>
+          <div class="seq-item"><span class="num">05</span>Sacred Fire &amp; Seven Pheras</div>
+          <div class="seq-item"><span class="num">06</span>Mangalsutra &amp; Sindoor Ceremony</div>
+          <div class="seq-item"><span class="num">07</span>Wedding Blessings</div>
+          <!-- <div class="seq-item"><span class="num">08</span>Reception</div> -->
+        </div>
+        <div class="together-forever script">Together Forever ❤️</div>
+      </div>
+    </div>
+
+    <!-- EVENT 4 -->
+    <div class="tl-item reveal left" id="vidaiWrap">
+      <span class="tl-dot"></span>
+      <span class="tl-date">08 July 2026</span><span class="tl-day">Wednesday</span>
+      <h3 class="tl-title">🌸 Vidai</h3>
+      <div class="tl-card">
+        <p class="vidai-quote">"Every ending marks the beginning of a beautiful new journey."</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     VENUE
+     ============================================================ -->
+<section id="venue">
+  <span class="section-eyebrow" style="color:var(--maroon);">Join Us At</span>
+  <h2 class="section-title" style="color:var(--maroon);">The Venue</h2>
+  <div class="divider-gold"></div>
+  <div class="venue-card reveal zoom">
+    <div class="info-row"><span>Village</span><span>Panditpur</span></div>
+    <div class="info-row"><span>Post</span><span>Bairipur Ramnath</span></div>
+    <div class="info-row"><span>Police Station</span><span>Mankapur</span></div>
+    <div class="info-row"><span>District</span><span>Gonda</span></div>
+    <div class="venue-actions">
+      <a class="venue-btn" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Panditpur%2C%20Bairipur%20Ramnath%2C%20Mankapur%2C%20Gonda">📍 Google Maps</a>
+      <a class="venue-btn" href="tel:+910000000000">📞 Call</a>
+      <button class="venue-btn" id="shareLocBtn">🔗 Share Location</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     RSVP
+     ============================================================ -->
+<section id="rsvp">
+  <span class="section-eyebrow">Will You Join Us?</span>
+  <h2 class="section-title">RSVP</h2>
+  <div class="divider-gold"></div>
+  <form class="rsvp-card reveal zoom" id="rsvpForm">
+    <input type="text" placeholder="Your Name" required>
+    <input type="tel" placeholder="Mobile Number" required>
+    <input type="number" placeholder="Number Of Guests" min="1">
+    <textarea placeholder="Your Message For The Couple"></textarea>
+    <button type="submit" class="btn-royal" style="width:100%;">Send Blessings</button>
+    <div id="rsvpThanks">Thank you for your blessings. 🙏</div>
+  </form>
+</section>
+
+<!-- ============================================================
+     GALLERY
+     ============================================================ -->
+<section id="gallery">
+  <span class="section-eyebrow" style="color:var(--maroon);">Moments To Cherish</span>
+  <h2 class="section-title" style="color:var(--maroon);">Gallery</h2>
+  <div class="divider-gold"></div>
+  <div class="gal-grid">
+    <div class="gal-item reveal zoom" data-label="Couple Photo"><span>Couple Photo</span></div>
+    <div class="gal-item reveal zoom" data-label="Family Photo"><span>Family Photo</span></div>
+    <div class="gal-item reveal zoom" data-label="Engagement"><span>Engagement</span></div>
+    <div class="gal-item reveal zoom" data-label="Haldi"><span>Haldi</span></div>
+    <div class="gal-item reveal zoom" data-label="Mehendi"><span>Mehendi</span></div>
+    <div class="gal-item reveal zoom" data-label="Wedding"><span>Wedding</span></div>
+  </div>
+</section>
+<div id="lightbox">
+  <span id="lbClose">✕</span>
+  <div class="lb-box" id="lbBox"></div>
+</div>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="foot-heart">💛</div>
+  <p class="regal" style="color:var(--gold-light); letter-spacing:2px; font-size:12px; margin-top:14px;">MADE WITH LOVE FOR</p>
+  <h3 class="script">Ajit Pandey ❤️ Roli Tiwari</h3>
+  <p>07 July 2026 · Panditpur, Gonda</p>
+  <p style="margin-top:10px; opacity:.55;">Website crafted with care by <strong style="color:var(--gold-light); font-weight:600;">Saurabh Tripathi (Ankit's Cousin brother)</strong></p>
+</footer>
+<script>
+/* ============================================================
+   PRELOADER SEQUENCE
+   ============================================================ */
+const preloader = document.getElementById('preloader');
+const envelopeWrap = document.getElementById('envelopeWrap');
+const skipBtn = document.getElementById('skipIntro');
+
+function endIntro(){
+  preloader.classList.add('hide');
+  document.body.style.cursor = '';
+}
+setTimeout(()=> envelopeWrap.classList.add('open'), 4900);
+const introTimer = setTimeout(endIntro, 7200);
+skipBtn.addEventListener('click', ()=>{ clearTimeout(introTimer); endIntro(); });
+
+/* ============================================================
+   CURSOR EFFECTS (desktop only)
+   ============================================================ */
+const cursorDot = document.getElementById('cursorDot');
+const cursorGlow = document.getElementById('cursorGlow');
+const isTouch = window.matchMedia('(max-width:768px)').matches;
+if(!isTouch){
+  window.addEventListener('mousemove', e=>{
+    cursorDot.style.left = e.clientX+'px'; cursorDot.style.top = e.clientY+'px';
+    cursorGlow.style.left = e.clientX+'px'; cursorGlow.style.top = e.clientY+'px';
+  });
+  document.addEventListener('mouseover', e=>{
+    if(e.target.closest('a,button,.gal-item')){ cursorGlow.style.width='54px'; cursorGlow.style.height='54px'; cursorGlow.style.borderColor='var(--gold-light)'; }
+  });
+  document.addEventListener('mouseout', e=>{
+    if(e.target.closest('a,button,.gal-item')){ cursorGlow.style.width='34px'; cursorGlow.style.height='34px'; }
+  });
+  document.addEventListener('click', e=>{
+    const ripple = document.createElement('div');
+    ripple.className='ripple'; ripple.style.left=e.clientX+'px'; ripple.style.top=e.clientY+'px';
+    document.body.appendChild(ripple); setTimeout(()=>ripple.remove(),700);
+    for(let i=0;i<6;i++){
+      const sp = document.createElement('div');
+      sp.className='spark'; sp.style.left=e.clientX+'px'; sp.style.top=e.clientY+'px';
+      const ang = Math.random()*Math.PI*2, dist = 30+Math.random()*30;
+      sp.style.setProperty('--dx', Math.cos(ang)*dist+'px');
+      sp.style.setProperty('--dy', Math.sin(ang)*dist+'px');
+      document.body.appendChild(sp); setTimeout(()=>sp.remove(),900);
+    }
+  });
+}
+
+/* ============================================================
+   AMBIENT FX LAYER: petals, fireflies, sparkles
+   ============================================================ */
+const fxLayer = document.getElementById('fxLayer');
+const petalChars = ['🌸','🌺','🌼','💮'];
+function spawnPetal(){
+  const p = document.createElement('div');
+  p.className='petal'; p.textContent = petalChars[Math.floor(Math.random()*petalChars.length)];
+  p.style.left = Math.random()*100+'vw';
+  p.style.fontSize = (12+Math.random()*14)+'px';
+  const dur = 9+Math.random()*8;
+  p.style.animationDuration = dur+'s';
+  fxLayer.appendChild(p);
+  setTimeout(()=>p.remove(), dur*1000);
+}
+setInterval(spawnPetal, 900);
+
+for(let i=0;i<18;i++){
+  const f = document.createElement('div');
+  f.className='firefly';
+  f.style.left = Math.random()*100+'vw'; f.style.top = Math.random()*100+'vh';
+  f.style.animationDuration = (3+Math.random()*4)+'s';
+  fxLayer.appendChild(f);
+}
+for(let i=0;i<30;i++){
+  const s = document.createElement('div');
+  s.className='sparkle-dot';
+  s.style.left = Math.random()*100+'vw'; s.style.top = Math.random()*100+'vh';
+  s.style.animationDuration = (2+Math.random()*3)+'s';
+  s.style.animationDelay = (Math.random()*3)+'s';
+  fxLayer.appendChild(s);
+}
+
+/* ============================================================
+   SCROLL REVEAL (Intersection Observer)
+   ============================================================ */
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{ if(en.isIntersecting) en.target.classList.add('in'); });
+},{ threshold:.2 });
+revealEls.forEach(el=>io.observe(el));
+
+/* sequential schedule items */
+function animateSequential(selector, container){
+  const items = container.querySelectorAll(selector);
+  const obs = new IntersectionObserver(entries=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        items.forEach((it,idx)=> setTimeout(()=> it.classList.add('in'), idx*220));
+        obs.disconnect();
+      }
+    });
+  },{ threshold:.3 });
+  obs.observe(container);
+}
+animateSequential('.sched-item', document.getElementById('event2'));
+animateSequential('.seq-item', document.getElementById('event3'));
+
+/* ============================================================
+   HANDWRITING ANIMATION FOR INVITATION QUOTE
+   ============================================================ */
+const quoteEl = document.getElementById('handwriteQuote');
+const originalText = quoteEl.textContent.trim();
+quoteEl.innerHTML = originalText.split(' ').map((w,i)=>`<span class="handwrite" style="--i:${i}">${w}&nbsp;</span>`).join('');
+const quoteObs = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      quoteEl.querySelectorAll('span').forEach(s=>{ s.style.animation='appearWord .4s ease forwards'; s.style.animationDelay = (parseInt(s.style.getPropertyValue('--i'))*60)+'ms'; });
+      quoteObs.disconnect();
+    }
+  });
+},{threshold:.3});
+quoteObs.observe(quoteEl);
+const styleSheet = document.styleSheets[0];
+styleSheet.insertRule('@keyframes appearWord{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }', styleSheet.cssRules.length);
+
+/* ============================================================
+   LIVE COUNTDOWN
+   ============================================================ */
+const weddingDate = new Date('2026-07-07T00:00:00');
+function updateCountdown(){
+  const now = new Date();
+  let diff = weddingDate - now;
+  if(diff < 0) diff = 0;
+  const d = Math.floor(diff/(1000*60*60*24));
+  const h = Math.floor((diff/(1000*60*60))%24);
+  const m = Math.floor((diff/(1000*60))%60);
+  const s = Math.floor((diff/1000)%60);
+  document.getElementById('cdDays').textContent = String(d).padStart(2,'0');
+  document.getElementById('cdHours').textContent = String(h).padStart(2,'0');
+  document.getElementById('cdMins').textContent = String(m).padStart(2,'0');
+  document.getElementById('cdSecs').textContent = String(s).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+/* ============================================================
+   NAVIGATION ACTIVE STATE
+   ============================================================ */
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('section');
+const navObs = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting){
+      navLinks.forEach(l=>l.classList.remove('active'));
+      const match = document.querySelector(`.nav-link[href="#${en.target.id}"]`);
+      if(match) match.classList.add('active');
+    }
+  });
+},{ threshold:.5 });
+sections.forEach(s=> s.id && navObs.observe(s));
+
+/* back to top */
+const backTop = document.getElementById('backTop');
+window.addEventListener('scroll', ()=>{
+  backTop.classList.toggle('show', window.scrollY > 600);
+});
+backTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+/* ============================================================
+   MUSIC PLAYER (WebAudio-generated ambient shehnai-style tone — no external files)
+   ============================================================ */
+let audioCtx, oscMain, oscDrone, gainNode, playing=false;
+function initAudio(){
+  if(audioCtx) return;
+  audioCtx = new (window.AudioContext||window.webkitAudioContext)();
+  gainNode = audioCtx.createGain(); gainNode.gain.value = 0.5;
+  gainNode.connect(audioCtx.destination);
+  oscDrone = audioCtx.createOscillator(); oscDrone.type='sine'; oscDrone.frequency.value=110;
+  oscMain = audioCtx.createOscillator(); oscMain.type='sine'; oscMain.frequency.value=330;
+  const lfo = audioCtx.createOscillator(); lfo.frequency.value = 4.2;
+  const lfoGain = audioCtx.createGain(); lfoGain.gain.value = 6;
+  lfo.connect(lfoGain); lfoGain.connect(oscMain.frequency);
+  oscDrone.connect(gainNode); oscMain.connect(gainNode);
+  oscDrone.start(); oscMain.start(); lfo.start();
+}
+const musicToggle = document.getElementById('musicToggle');
+const musicPlayer = document.getElementById('musicPlayer');
+const volRange = document.getElementById('volRange');
+function toggleMusic(){
+  initAudio();
+  if(playing){ audioCtx.suspend(); musicToggle.textContent='▶'; musicPlayer.classList.remove('playing'); }
+  else{ audioCtx.resume(); musicToggle.textContent='⏸'; musicPlayer.classList.add('playing'); }
+  playing = !playing;
+}
+musicToggle.addEventListener('click', toggleMusic);
+document.getElementById('navMusicBtn').addEventListener('click', e=>{ e.preventDefault(); toggleMusic(); });
+volRange.addEventListener('input', ()=>{ if(gainNode) gainNode.gain.value = volRange.value; });
+volRange.value = 0.5;
+
+/* ============================================================
+   CONFETTI — launches when Event 2 (Bhandara) enters view
+   ============================================================ */
+const confettiCanvas = document.getElementById('confettiCanvas');
+const ctx = confettiCanvas.getContext('2d');
+function resizeCanvas(){ confettiCanvas.width = innerWidth; confettiCanvas.height = innerHeight; }
+resizeCanvas(); window.addEventListener('resize', resizeCanvas);
+let confettiParticles = [];
+function launchConfetti(){
+  const colors = ['#D4AF37','#F3D88A','#7A0019','#FFECEF','#fff'];
+  for(let i=0;i<140;i++){
+    confettiParticles.push({
+      x: Math.random()*confettiCanvas.width, y: -20-Math.random()*200,
+      r: 3+Math.random()*4, c: colors[Math.floor(Math.random()*colors.length)],
+      vy: 2+Math.random()*3, vx: -1+Math.random()*2, rot: Math.random()*360, vrot: -4+Math.random()*8
+    });
+  }
+}
+function animateConfetti(){
+  ctx.clearRect(0,0,confettiCanvas.width,confettiCanvas.height);
+  confettiParticles.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy; p.rot+=p.vrot;
+    ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot*Math.PI/180);
+    ctx.fillStyle=p.c; ctx.fillRect(-p.r,-p.r,p.r*2,p.r*2); ctx.restore();
+  });
+  confettiParticles = confettiParticles.filter(p=> p.y < confettiCanvas.height+20);
+  requestAnimationFrame(animateConfetti);
+}
+animateConfetti();
+let confettiFired = false;
+const event2Obs = new IntersectionObserver(entries=>{
+  entries.forEach(en=>{
+    if(en.isIntersecting && !confettiFired){ launchConfetti(); confettiFired = true; }
+  });
+},{threshold:.4});
+event2Obs.observe(document.getElementById('event2'));
+
+/* ============================================================
+   RSVP FORM (no backend — client-side confirmation only)
+   ============================================================ */
+document.getElementById('rsvpForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  this.querySelectorAll('input,textarea,button[type=submit]').forEach(el=> el.style.display='none');
+  document.getElementById('rsvpThanks').style.display='block';
+});
+
+/* ============================================================
+   SHARE LOCATION
+   ============================================================ */
+document.getElementById('shareLocBtn').addEventListener('click', async ()=>{
+  const text = "You're invited! Venue: Panditpur, Bairipur Ramnath, Mankapur, Gonda — Ajit & Roli's Wedding, 07 July 2026.";
+  const url = "https://www.google.com/maps/search/?api=1&query=Panditpur%2C%20Bairipur%20Ramnath%2C%20Mankapur%2C%20Gonda";
+  if(navigator.share){
+    try{ await navigator.share({ title:'Wedding Venue', text, url }); }catch(err){}
+  } else {
+    try{ await navigator.clipboard.writeText(text+' '+url); alert('Venue location copied to clipboard!'); }
+    catch(err){ alert(text+' '+url); }
+  }
+});
+
+/* ============================================================
+   GALLERY LIGHTBOX
+   ============================================================ */
+const lightbox = document.getElementById('lightbox');
+const lbBox = document.getElementById('lbBox');
+document.querySelectorAll('.gal-item').forEach(item=>{
+  item.addEventListener('click', ()=>{
+    lbBox.textContent = item.dataset.label;
+    lightbox.classList.add('show');
+  });
+});
+document.getElementById('lbClose').addEventListener('click', ()=> lightbox.classList.remove('show'));
+lightbox.addEventListener('click', e=>{ if(e.target===lightbox) lightbox.classList.remove('show'); });
+
+/* ============================================================
+   SMOOTH SCROLL FOR NAV LINKS
+   ============================================================ */
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click', e=>{
+    const id = a.getAttribute('href');
+    if(id.length>1){
+      e.preventDefault();
+      document.querySelector(id)?.scrollIntoView({behavior:'smooth'});
+    }
+  });
+});
+</script>
+</body>
+</html>
